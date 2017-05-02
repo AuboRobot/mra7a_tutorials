@@ -1,0 +1,34 @@
+<package>
+  <name>brain_control</name>
+  <version>1.0.0</version>
+  <description>This stack is used to control mra7a by brain.</description>
+
+  <maintainer email="mengnanli@aliyun.com">lmn</maintainer>
+
+  <license>BSD</license>
+
+  <author>lmn</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+<!-- marker_control_python-->
+  <run_depend>roscpp</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>moveit_ros_planning_interface</run_depend>
+  <run_depend>moveit_ros_warehouse</run_depend>
+  <run_depend>moveit_ros_robot_interaction</run_depend>
+  <run_depend>pluginlib</run_depend>
+  <run_depend>interactive_markers</run_depend>
+  <run_depend>geometric_shapes</run_depend>
+  <run_depend>object_recognition_msgs</run_depend>
+  <run_depend>moveit_ros_perception</run_depend>
+  <run_depend>rospy</run_depend>
+<!-- message_router-->
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+<!-- detect_ik_solution-->
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
