@@ -1,9 +1,9 @@
 # The brain_control stack
-**This stack is a demo for controling the motion of the mra7a by brain. **
+**This stack is a demo for controling the motion of the mra7a by brain.**
 ## Details
-1. The ** marker_control_python** package is for subscribing “/joy”　topic and control the effector of the mra7a. </br>
-2. The ** deteck_ik_solution** package is for insuring the mraker in the workspace that the mra7a can arrive.</br>
-3. the ** message_router** package is the middle node for transforming the command of brain to the ros topic "/joy".</br>
+1. The **marker_control_python** package is for subscribing “/joy”　topic and control the effector of the mra7a. </br>
+2. The **deteck_ik_solution** package is for insuring the mraker in the workspace that the mra7a can arrive.</br>
+3. the **message_router** package is the middle node for transforming the command of brain to the ros topic "/joy".</br>
 
 ## Run Steps
 0. Power on the mra7a.</br>
