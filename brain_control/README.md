@@ -6,10 +6,15 @@
 3. the **message_router** package is the middle node for transforming the command of brain to the ros topic "/joy".</br>
 
 ## Run Steps
+### Running separately
 0. Power on the mra7a.</br>
 1. roslaunch mra_control mra7a_hw_trajectory_bingup.launch</br>
 2. roslaunch mra7a_gazebo mra7a_bringup_rviz.launch(choose "Allow external comm" and planning algorithm).</br>
 3. rosrun marker_control_python marker_control_start.py</br>
 4. rosrun detect_ik_solution detect_ik_solution_node</br>
-5. rosrun message_router message_router_node 192.168.1.255 6000</br>
-6. TEST: cd messsage_router/test, g++ sender.c -o sender, run: ./sender  192.168.1.255 6000</br>
+5. rosrun message_router message_router_node 192.168.1.255 6000(your broadcast ip and port)</br>
+6. TEST: cd messsage_router/test, g++ sender.c -o sender, run: ./sender  192.168.1.255 6000(your broadcast ip and port)</br>
+### Running by roslaunch
+0. Power on the mra7a.</br>
+1. roslaunch marker_control_python brain_control.launch (You can set the broadcast ip and port parms in the launch file.)
+3. TEST: cd messsage_router/test, g++ sender.c -o sender, run: ./sender  192.168.1.255 6000(your broadcast ip and port)</br>
