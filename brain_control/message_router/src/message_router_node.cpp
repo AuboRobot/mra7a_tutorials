@@ -100,8 +100,8 @@ int main(int argc, char** argv)
      */
     std::string broadcast_ip;
     std::string broadcast_port;
-    ros::param::get("/broadcast_port",broadcast_port);
-    if(!ros::param::get("/broadcast_ip",broadcast_ip)){
+    sleep(1);
+    if(!ros::param::get("/message_router/broadcast_ip",broadcast_ip) || !ros::param::get("/message_router/broadcast_port",broadcast_port)){
         if (argc != 3 ) {
             printf("usage:%s broadcast_ip port\n", argv[0]);
             return 0;

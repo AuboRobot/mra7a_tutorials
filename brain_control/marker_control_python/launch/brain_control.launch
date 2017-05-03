@@ -12,9 +12,9 @@
   <node name="detect_ik_solution" pkg="detect_ik_solution" type="detect_ik_solution_node">
   </node>
 
-  <node name="message_router" pkg="message_router" type="message_router_node">
-    <param name="/broadcast_ip" value="192.168.80.255"/>
-    <param name="/broadcast_port" value="6000"/>
+  <node name="message_router" pkg="message_router" type="message_router_node" output="screen">
+    <param name="broadcast_ip" type="string" value="192.168.80.255"/>
+    <param name="broadcast_port" type="string" value="6000"/>
   </node>
 
 
