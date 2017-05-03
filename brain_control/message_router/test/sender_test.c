@@ -54,6 +54,7 @@ std::string mycmd;
 	std::cout<<"[12] -Yaw"<<std::endl;
 	std::cout<<"[13] Step5"<<std::endl;
 	std::cout<<"[14] Step20"<<std::endl;
+        std::cout<<"[15] update marker"<<std::endl;
         std::cout<<"-------------------------------------------------"<<std::endl;
         std::getline(std::cin,mycmd);
         if(!mycmd.compare("1")){
