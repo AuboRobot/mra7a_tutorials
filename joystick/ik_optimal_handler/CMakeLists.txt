@@ -124,23 +124,17 @@ include_directories(
    ${catkin_LIBRARIES}
  )
 set_target_properties(IKOptimalHandler PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
-## Add cmake target dependencies of the library
-## as an example, code may need to be generated before libraries
-## either from message generation or dynamic reconfigure
+
 # add_dependencies(IKOptimalHandler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## Declare a C++ executable
- add_executable(test_main test/main.cpp)
+## Test
+# add_executable(test_main test/main.cpp)
+# target_link_libraries(test_main
+#   ${catkin_LIBRARIES} ${PROJECT_SOURCE_DIR}/lib/libIKOptimalHandler.so
+# )
+#add_dependencies(test_main ${catkin_EXPORTED_TARGETS})
 
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(IKOptimalHandler_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## Specify libraries to link a library or executable target against
- target_link_libraries(test_main
-   ${catkin_LIBRARIES} ${PROJECT_SOURCE_DIR}/lib/libIKOptimalHandler.so
- )
-add_dependencies(test_main ${catkin_EXPORTED_TARGETS})
 #############
 ## Install ##
 #############
