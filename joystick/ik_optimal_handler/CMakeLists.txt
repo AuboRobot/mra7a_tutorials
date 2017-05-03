@@ -140,7 +140,7 @@ set_target_properties(IKOptimalHandler PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PRO
  target_link_libraries(test_main
    ${catkin_LIBRARIES} ${PROJECT_SOURCE_DIR}/lib/libIKOptimalHandler.so
  )
-
+add_dependencies(test_main ${catkin_EXPORTED_TARGETS})
 #############
 ## Install ##
 #############
