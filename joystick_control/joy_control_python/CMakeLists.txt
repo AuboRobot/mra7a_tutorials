@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(joy_control)
+project(joy_control_python)
 
 find_package(Boost REQUIRED thread date_time system filesystem)
 

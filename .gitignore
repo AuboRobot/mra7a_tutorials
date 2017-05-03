@@ -3,3 +3,4 @@ qtbuild/
 .idea
 sender
 libIKOptimalHandler.so
+.DS_Store

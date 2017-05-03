@@ -1,5 +1,5 @@
 <package>
-  <name>joystick</name>
+  <name>joystick_control</name>
   <version>1.0.0</version>
   <description>This stack is used to control mra7a by joystick.</description>
 
