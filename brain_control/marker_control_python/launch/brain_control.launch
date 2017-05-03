@@ -6,7 +6,7 @@
   <include file="$(find mra7a_gazebo)/launch/mra7a_bringup_rviz.launch">
   </include>
 
-  <node name="marker_control_python" pkg="marker_control_python" type="marker_control_start.py">  
+  <node name="marker_control_python" pkg="marker_control_python" type="marker_control_start.py" output="screen">  
   </node>
 
   <node name="detect_ik_solution" pkg="detect_ik_solution" type="detect_ik_solution_node">
