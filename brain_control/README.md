@@ -7,9 +7,9 @@
 
 ## Run Steps
 0. Power on the mra7a.</br>
-1. roslaunch mra_ros_control mra7a_hw_trajectory_bingup.launch</br>
+1. roslaunch mra_control mra7a_hw_trajectory_bingup.launch</br>
 2. roslaunch mra7a_gazebo mra7a_bringup_rviz.launch(choose "Allow external comm" and planning algorithm).</br>
-3. rosrun mraker_control_python marker_control_start.py</br>
+3. rosrun marker_control_python marker_control_start.py</br>
 4. rosrun detect_ik_solution detect_ik_solution_node</br>
-5. rosrun messgae_router message_router_node 192.168.1.255 6000</br>
+5. rosrun message_router message_router_node 192.168.1.255 6000</br>
 6. TEST: cd messsage_router/test, g++ sender.c -o sender, run: ./sender  192.168.1.255 6000</br>

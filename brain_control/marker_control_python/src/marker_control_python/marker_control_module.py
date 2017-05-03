@@ -555,6 +555,8 @@ class MoveitJoy:
         return new_pose
 
     def run(self, status):
+        if self.history.new(status, "start"):
+            self.initialized = False
         if not self.initialized:
             # when not initialized, we will force to change planning_group
             while True:
@@ -569,7 +571,7 @@ class MoveitJoy:
                     rospy.loginfo("Initialized planning group")
                     self.initialized = True
                     self.updatePoseTopic(self.current_eef_index)
-                    break #if it is return, the first control command will not control arm just only initialize this
+                    break #default is return. if it is return, the first control command will not control arm just only initialize this
                 # Try to initialize with different planning group
                 self.current_planning_group_index += 1
                 if self.current_planning_group_index >= len(self.planning_groups_keys):
@@ -579,11 +581,11 @@ class MoveitJoy:
             self.current_eef_index = 0    # force to reset
             self.updatePoseTopic(self.current_eef_index)
             return
-        elif self.history.new(status, "start"):   #decrement planning group
-            self.updatePlanningGroup(self.current_planning_group_index - 1)
-            self.current_eef_index = 0    # force to reset
-            self.updatePoseTopic(self.current_eef_index)
-            return
+        # elif self.history.new(status, "start"):   #decrement planning group
+        #     self.updatePlanningGroup(self.current_planning_group_index - 1)
+        #     self.current_eef_index = 0    # force to reset
+        #     self.updatePoseTopic(self.current_eef_index)
+        #     return
         elif self.history.new(status, "triangle"):
             #self.updatePoseTopic(self.current_eef_index + 1)
             self.gears = 1

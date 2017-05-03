@@ -98,6 +98,9 @@ std::string mycmd;
         else if(!mycmd.compare("14")){
 	    strcpy(buf,"Step20");
 	}
+        else if(!mycmd.compare("15")){
+	    strcpy(buf,"update marker");
+	}
         else {
 	    strcpy(buf,mycmd.c_str());
 	}

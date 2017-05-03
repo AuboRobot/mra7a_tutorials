@@ -37,8 +37,8 @@
       <file leaf-file-name="marker_control_module.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="631" column="38" lean-forward="false" selection-start-line="631" selection-start-column="38" selection-end-line="631" selection-end-column="38" />
+            <state relative-caret-position="13246">
+              <caret line="558" column="36" lean-forward="false" selection-start-line="558" selection-start-column="36" selection-end-line="558" selection-end-column="36" />
               <folding>
                 <element signature="e#1976#1998#0" expanded="true" />
                 <element signature="e#2634#3230#0" expanded="false" />
@@ -129,7 +129,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,7 +176,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -303,8 +303,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="89" y="30" width="2387" height="1414" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11101802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17720988" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -329,11 +330,50 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/scripts/marker_control_start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="41" column="21" lean-forward="false" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+          <folding>
+            <element signature="e#1716#1781#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/lib/python2.7/dist-packages/rospy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3024">
+          <caret line="107" column="20" lean-forward="false" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/lib/python2.7/dist-packages/sensor_msgs/msg/_Joy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18324">
+          <caret line="631" column="38" lean-forward="false" selection-start-line="631" selection-start-column="38" selection-end-line="631" selection-end-column="38" />
+          <folding>
+            <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2634#3230#0" expanded="false" />
+            <element signature="e#3264#5301#0" expanded="false" />
+            <element signature="e#7452#8142#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/marker_control_start.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1440">
@@ -547,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="631" column="38" lean-forward="false" selection-start-line="631" selection-start-column="38" selection-end-line="631" selection-end-column="38" />
+        <state relative-caret-position="13246">
+          <caret line="558" column="36" lean-forward="false" selection-start-line="558" selection-start-column="36" selection-end-line="558" selection-end-column="36" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
             <element signature="e#2634#3230#0" expanded="false" />

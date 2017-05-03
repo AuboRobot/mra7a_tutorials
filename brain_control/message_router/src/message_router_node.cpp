@@ -82,6 +82,9 @@ void switch_msg_to_joy(const char *str)
     case hash_compile_time("Step20"):
         joy_msg.buttons[14] = 1;
         break;
+    case hash_compile_time("update marker"):
+        joy_msg.buttons[3] = 1;
+        break;
     default:
         cout << "switch_msg_to_joy: no msg match : " << str << endl;
     }
