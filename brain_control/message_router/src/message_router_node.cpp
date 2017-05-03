@@ -92,16 +92,27 @@ void switch_msg_to_joy(const char *str)
 
 int main(int argc, char** argv)
 {
-    if (argc != 3 ) {
-        printf("usage:%s broadcast_ip port\n", argv[0]);
-        return 0;
-    }
-
     ros::init(argc, argv, "message_router_node");
+    ros::NodeHandle n_;
+
+    /**
+     * Firstly, lookup the bradcast_ip and broadcast_port in the rosparameter server.
+     */
+    std::string broadcast_ip;
+    std::string broadcast_port;
+    ros::param::get("/broadcast_port",broadcast_port);
+    if(!ros::param::get("/broadcast_ip",broadcast_ip)){
+        if (argc != 3 ) {
+            printf("usage:%s broadcast_ip port\n", argv[0]);
+            return 0;
+        }
+        broadcast_ip = argv[1];
+        broadcast_port = argv[2];
+    }
 
     joy_msg.axes.resize(27);
     joy_msg.buttons.resize(19);
-    ros::NodeHandle n_;
+
     ros::Publisher pub_joy = n_.advertise<sensor_msgs::Joy>("/joy",1);
 
 
@@ -119,8 +130,8 @@ int main(int argc, char** argv)
     //bind
     memset(&addr, 0, sizeof(addr));
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(atoi(argv[2]));
-    addr.sin_addr.s_addr = inet_addr(argv[1]);
+    addr.sin_port = htons(atoi(broadcast_port.c_str()));
+    addr.sin_addr.s_addr = inet_addr(broadcast_ip.c_str());
     if (bind(sockfd, (struct sockaddr *)&addr, sizeof(addr)) == -1) {
         perror("bind");
         return -1;
