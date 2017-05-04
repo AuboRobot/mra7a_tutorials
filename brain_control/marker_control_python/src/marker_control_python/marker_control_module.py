@@ -539,6 +539,7 @@ class MoveitJoy:
             elif self.gripper_command == 0:
                 self.gripper_command = 1;
                 self.pub_gripper_command.publish(1)
+            return
 
         #do this for ignoring the control command when the arm is moving
         if self.ready_control:#detect whether the arm is moving or not.
