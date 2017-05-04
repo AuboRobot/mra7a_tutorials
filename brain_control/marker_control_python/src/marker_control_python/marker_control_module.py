@@ -479,6 +479,7 @@ class MoveitJoy:
         if self.history.new(status, "start"):
             self.initialized = False
             self.initial_poses = {}
+            self.parseSRDF()
         #initialize the initial pose and pre_pose
         if not self.initialized:
             # when not initialized, we will force to change planning_group
@@ -494,7 +495,7 @@ class MoveitJoy:
                     rospy.loginfo("Initialized planning group")
                     self.initialized = True
                     self.updatePoseTopic(self.current_eef_index)
-                    break #default is return. if it is return, the first control command will not control arm just only initialize this
+                    return #default is return. if it is return, the first control command will not control arm just only initialize this
                 # Try to initialize with different planning group
                 self.current_planning_group_index += 1
                 if self.current_planning_group_index >= len(self.planning_groups_keys):
