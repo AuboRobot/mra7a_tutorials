@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
             joy_pose_stamped = joy_pose_deque.front();//get the first of the queue;
             pose_end_link = joy_pose_stamped.pose;
             joy_pose_deque.pop_front();//delete the first of the queue;
+            joy_pose_deque.clear();
   
 
             /*IK*/

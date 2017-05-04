@@ -387,7 +387,7 @@ class MoveitJoy:
         else:
             raise Exception("Unknown joystick")
         self.run(status)
-        self.history.add(status)
+        #self.history.add(status)
 
     def computePoseFromJoy(self, pre_pose, status):
         new_pose = PoseStamped()
@@ -475,9 +475,11 @@ class MoveitJoy:
         return new_pose
 
     def run(self, status):
+        #update marker
         if self.history.new(status, "start"):
             self.initialized = False
             self.initial_poses = {}
+        #initialize the initial pose and pre_pose
         if not self.initialized:
             # when not initialized, we will force to change planning_group
             while True:
@@ -497,7 +499,8 @@ class MoveitJoy:
                 self.current_planning_group_index += 1
                 if self.current_planning_group_index >= len(self.planning_groups_keys):
                     self.current_planning_group_index = 0 # reset loop
-        if self.history.new(status, "select"):   #increment planning group
+        # increment planning group
+        if self.history.new(status, "select"):
             self.updatePlanningGroup(self.current_planning_group_index + 1)
             self.current_eef_index = 0    # force to reset
             self.updatePoseTopic(self.current_eef_index)
