@@ -536,7 +536,7 @@ class MoveitJoy:
             self.new_pose = self.computePoseFromJoy(pre_pose, status)
             #update the goal state(orange)
             self.pose_pub.publish(self.new_pose)
-            rate = rospy.Rate(100)
+            rate = rospy.Rate(20)
             #update the joy pose in the Rviz
             self.joy_pose_pub.publish(self.new_pose)
 
@@ -548,7 +548,6 @@ class MoveitJoy:
                 while not self.is_received_display_planned_path:
                     rate.sleep()
                 self.is_received_display_planned_path = False
-                rate.sleep()
                 rate.sleep()
                 if self.can_execute:
                     rospy.loginfo("Execute")
