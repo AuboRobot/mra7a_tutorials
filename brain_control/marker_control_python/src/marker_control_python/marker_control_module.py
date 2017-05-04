@@ -529,7 +529,7 @@ class MoveitJoy:
             return
 
         #do this for ignoring the control command when the arm is moving
-        if self.ready_control:
+        if self.ready_control:#detect whether the arm is moving or not.
             self.ready_control = False
             self.marker_lock.acquire()
             pre_pose = self.pre_pose
@@ -548,6 +548,7 @@ class MoveitJoy:
                 while not self.is_received_display_planned_path:
                     rate.sleep()
                 self.is_received_display_planned_path = False
+                rate.sleep()
                 rate.sleep()
                 if self.can_execute:
                     rospy.loginfo("Execute")
