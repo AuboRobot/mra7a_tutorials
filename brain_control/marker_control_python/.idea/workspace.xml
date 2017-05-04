@@ -37,23 +37,23 @@
       <file leaf-file-name="marker_control_module.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13246">
-              <caret line="558" column="36" lean-forward="false" selection-start-line="558" selection-start-column="36" selection-end-line="558" selection-end-column="36" />
+            <state relative-caret-position="380">
+              <caret line="479" column="26" lean-forward="false" selection-start-line="479" selection-start-column="26" selection-end-line="479" selection-end-column="26" />
               <folding>
                 <element signature="e#1976#1998#0" expanded="true" />
+                <element signature="e#2470#2542#0" expanded="false" />
                 <element signature="e#2634#3230#0" expanded="false" />
-                <element signature="e#3264#5301#0" expanded="false" />
-                <element signature="e#7452#8142#0" expanded="false" />
+                <element signature="e#3269#5354#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_Joy.py" pinned="false" current-in-tab="false">
-        <entry file="file:///opt/ros/indigo/lib/python2.7/dist-packages/sensor_msgs/msg/_Joy.py">
+      <file leaf-file-name="__builtin__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1247972723/__builtin__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+            <state relative-caret-position="410">
+              <caret line="230" column="4" lean-forward="false" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -64,6 +64,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>joy_pose</find>
+      <find>PS3Status</find>
+      <find>Changed planning group</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -129,7 +131,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,6 +177,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -330,7 +332,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -363,13 +365,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20088">
+          <caret line="558" column="36" lean-forward="false" selection-start-line="558" selection-start-column="36" selection-end-line="558" selection-end-column="36" />
+          <folding>
+            <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
+            <element signature="e#2634#3230#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/marker_control_start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="41" column="21" lean-forward="false" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+          <folding>
+            <element signature="e#1716#1781#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/lib/python2.7/dist-packages/rospy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3024">
+          <caret line="107" column="20" lean-forward="false" selection-start-line="107" selection-start-column="19" selection-end-line="107" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/indigo/lib/python2.7/dist-packages/sensor_msgs/msg/_Joy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18324">
           <caret line="631" column="38" lean-forward="false" selection-start-line="631" selection-start-column="38" selection-end-line="631" selection-end-column="38" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -406,9 +447,9 @@
           <caret line="619" column="16" lean-forward="true" selection-start-line="619" selection-start-column="16" selection-end-line="619" selection-end-column="16" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -445,9 +486,9 @@
           <caret line="576" column="0" lean-forward="false" selection-start-line="576" selection-start-column="0" selection-end-line="576" selection-end-column="0" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -484,9 +525,9 @@
           <caret line="578" column="29" lean-forward="true" selection-start-line="578" selection-start-column="29" selection-end-line="578" selection-end-column="29" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -515,9 +556,9 @@
           <caret line="437" column="20" lean-forward="false" selection-start-line="437" selection-start-column="20" selection-end-line="437" selection-end-column="20" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -538,9 +579,9 @@
           <caret line="527" column="24" lean-forward="false" selection-start-line="527" selection-start-column="24" selection-end-line="527" selection-end-column="24" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -585,15 +626,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1247972723/moveit_ros_planning_interface/_moveit_robot_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="53" column="24" lean-forward="false" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2/typing.pyi">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="212" column="8" lean-forward="false" selection-start-line="212" selection-start-column="8" selection-end-line="212" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2017.1/system/python_stubs/-1247972723/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="230" column="4" lean-forward="false" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13246">
-          <caret line="558" column="36" lean-forward="false" selection-start-line="558" selection-start-column="36" selection-end-line="558" selection-end-column="36" />
+        <state relative-caret-position="380">
+          <caret line="479" column="26" lean-forward="false" selection-start-line="479" selection-start-column="26" selection-end-line="479" selection-end-column="26" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
+            <element signature="e#2470#2542#0" expanded="false" />
             <element signature="e#2634#3230#0" expanded="false" />
-            <element signature="e#3264#5301#0" expanded="false" />
-            <element signature="e#7452#8142#0" expanded="false" />
+            <element signature="e#3269#5354#0" expanded="false" />
           </folding>
         </state>
       </provider>
