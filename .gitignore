@@ -1,7 +1,7 @@
 CMakeLists.txt.user
 qtbuild/
 .idea
-.idea/
+.idea/workspace.xml
 sender
 libIKOptimalHandler.so
 .DS_Store

@@ -2,6 +2,7 @@
 # ********************************************************************
 # Software License Agreement (BSD License)
 #
+#  Copyright 2017, AUBO, Inc.
 #  Copyright (c) 2014, JSK, The University of Tokyo.
 #  All rights reserved.
 #
@@ -34,8 +35,8 @@
 #  POSSIBILITY OF SUCH DAMAGE.
 # ********************************************************************/
 
-#   Author: Ryohei Ueda, Dave Coleman
-#   Desc:   Interface between PS3/XBox controller and MoveIt! Motion Planning Rviz Plugin
+#   Author: LMN (O:Ryohei Ueda, Dave Coleman)
+#   Desc:   Interface between Brain controller and MoveIt! Motion Planning Rviz Plugin
 
 
 import xml.dom.minidom
@@ -54,6 +55,7 @@ from sensor_msgs.msg import Joy
 from geometry_msgs.msg import PoseStamped
 from visualization_msgs.msg import InteractiveMarkerInit
 from moveit_msgs.msg import ExecuteTrajectoryActionResult, DisplayTrajectory
+from std_msgs.msg import Int8
 
 
 def signedSquare(val):
@@ -261,6 +263,8 @@ class MoveitJoy:
         self.can_execute = False
         self.is_received_display_planned_path = False
         self.gears = 1 #dangwei
+        self.pub_gripper_command = rospy.Publisher("/mra/gripper_command", Int8, queue_size=1)
+        self.gripper_command = 1;
 
     def display_trajectory_path_callback(self,msg):
         length = len(msg.trajectory[0].joint_trajectory.points)
@@ -527,6 +531,14 @@ class MoveitJoy:
             rospy.loginfo("Execute")
             self.execute_pub.publish(Empty())
             return
+        elif self.history.new(status, "center"): #gripper
+            rospy.loginfo("Gripper control")
+            if self.gripper_command == 1:
+                self.gripper_command = 0;
+                self.pub_gripper_command.publish(0)
+            elif self.gripper_command == 0:
+                self.gripper_command = 1;
+                self.pub_gripper_command.publish(1)
 
         #do this for ignoring the control command when the arm is moving
         if self.ready_control:#detect whether the arm is moving or not.

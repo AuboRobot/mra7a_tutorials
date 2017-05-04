@@ -40,6 +40,7 @@ std::string mycmd;
 	while(1){
         std::cout<<"-------------------------------------------------"<<std::endl;
         std::cout<<"Choose the number : "<<std::endl;
+        std::cout<<"[0] update marker"<<std::endl;
         std::cout<<"[1] Z"<<std::endl;
         std::cout<<"[2] -Z"<<std::endl;
         std::cout<<"[3] X"<<std::endl;
@@ -54,10 +55,13 @@ std::string mycmd;
 	std::cout<<"[12] -Yaw"<<std::endl;
 	std::cout<<"[13] Step5"<<std::endl;
 	std::cout<<"[14] Step20"<<std::endl;
-        std::cout<<"[15] update marker"<<std::endl;
+        std::cout<<"[15] gripper"<<std::endl;       
         std::cout<<"-------------------------------------------------"<<std::endl;
         std::getline(std::cin,mycmd);
-        if(!mycmd.compare("1")){
+        if(!mycmd.compare("0")){
+	    strcpy(buf,"update marker");
+	}
+        else if(!mycmd.compare("1")){
 	    strcpy(buf,"Z");
 	}
         else if(!mycmd.compare("2")){
@@ -100,7 +104,7 @@ std::string mycmd;
 	    strcpy(buf,"Step20");
 	}
         else if(!mycmd.compare("15")){
-	    strcpy(buf,"update marker");
+	    strcpy(buf,"gripper");
 	}
         else {
 	    strcpy(buf,mycmd.c_str());
