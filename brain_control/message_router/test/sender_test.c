@@ -53,9 +53,10 @@ std::string mycmd;
 	std::cout<<"[10] -Pitch"<<std::endl;
 	std::cout<<"[11] Yaw"<<std::endl;
 	std::cout<<"[12] -Yaw"<<std::endl;
-	std::cout<<"[13] Step5"<<std::endl;
-	std::cout<<"[14] Step20"<<std::endl;
-        std::cout<<"[15] gripper"<<std::endl;       
+	std::cout<<"[13] Step2"<<std::endl;
+	std::cout<<"[14] Step5"<<std::endl;
+	std::cout<<"[15] Step20"<<std::endl;
+        std::cout<<"[16] gripper"<<std::endl;       
         std::cout<<"-------------------------------------------------"<<std::endl;
         std::getline(std::cin,mycmd);
         if(!mycmd.compare("0")){
@@ -98,12 +99,15 @@ std::string mycmd;
 	    strcpy(buf,"-Yaw");
 	}
 	else if(!mycmd.compare("13")){
+	    strcpy(buf,"Step2");
+	}
+	else if(!mycmd.compare("14")){
 	    strcpy(buf,"Step5");
 	}
-        else if(!mycmd.compare("14")){
+        else if(!mycmd.compare("15")){
 	    strcpy(buf,"Step20");
 	}
-        else if(!mycmd.compare("15")){
+        else if(!mycmd.compare("16")){
 	    strcpy(buf,"gripper");
 	}
         else {

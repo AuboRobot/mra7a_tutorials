@@ -92,11 +92,15 @@ class JoyStatus():
         self.right_analog_x = 0.0
         self.right_analog_y = 0.0
 
+        self.gear2 = False
+
 class PS3WiredStatus(JoyStatus):
     def __init__(self, msg):
         JoyStatus.__init__(self)
         # creating from sensor_msgs/Joy
-        if msg.buttons[16] == 1:
+        if msg.buttons[17] == 1:
+            self.gear2 = True
+        elif msg.buttons[16] == 1:
             self.center = True
         else:
             self.center = False
@@ -399,17 +403,21 @@ class MoveitJoy:
         new_pose.header.stamp = rospy.Time(0.0)
         # move in local
         dist = status.left_analog_y * status.left_analog_y + status.left_analog_x * status.left_analog_x
-        if self.gears == 1:
+        if self.gears == 0:
+            scale = 200.0
+        elif self.gears == 1:
             scale = 100.0 #default 200
         elif self.gears == 2:
-            scale = 70
+            scale = 50
         x_diff = signedSquare(status.left_analog_y) / scale
         y_diff = signedSquare(status.left_analog_x) / scale
         # z
-        if self.gears == 1:
+        if self.gears == 0:
+            step_z = 0.03
+        elif self.gears == 1:
             step_z = 0.1
         elif self.gears == 2:
-            step_z = 0.15
+            step_z = 0.25
         if status.L2:
             z_diff = step_z #default 0.005
         elif status.R2:
@@ -436,10 +444,12 @@ class MoveitJoy:
         roll = 0.0
         pitch = 0.0
         yaw = 0.0
-        if self.gears == 1:
+        if self.gears == 0:
+            DTHETA = 0.1
+        elif self.gears == 1:
             DTHETA = 0.2  #default 0.005
         elif self.gears == 2:
-            DTHETA = 0.3
+            DTHETA = 0.35
         if status.L1:
             if self.history.all(lambda s: s.L1):
                 yaw = yaw + DTHETA * 2
@@ -522,6 +532,10 @@ class MoveitJoy:
         elif self.history.new(status, "cross"):
             #self.updatePoseTopic(self.current_eef_index - 1)
             self.gears = 2
+            return
+        elif self.history.new(status, "gear2"):
+            #self.updatePoseTopic(self.current_eef_index - 1)
+            self.gears = 0
             return
         elif self.history.new(status, "square"):   #plan
             rospy.loginfo("Plan")

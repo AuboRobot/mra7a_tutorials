@@ -76,6 +76,9 @@ void switch_msg_to_joy(const char *str)
     case hash_compile_time("-Yaw"):
         joy_msg.buttons[11] = 1;
         break;
+    case hash_compile_time("Step2"):
+        joy_msg.buttons[17] = 1;
+        break;
     case hash_compile_time("Step5"):
         joy_msg.buttons[12] = 1;
         break;
