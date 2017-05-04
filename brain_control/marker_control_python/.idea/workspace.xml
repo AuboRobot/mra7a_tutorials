@@ -37,8 +37,8 @@
       <file leaf-file-name="marker_control_module.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1600">
-              <caret line="497" column="26" lean-forward="false" selection-start-line="497" selection-start-column="26" selection-end-line="497" selection-end-column="26" />
+            <state relative-caret-position="592">
+              <caret line="550" column="28" lean-forward="false" selection-start-line="550" selection-start-column="28" selection-end-line="550" selection-end-column="28" />
               <folding>
                 <element signature="e#1976#1998#0" expanded="true" />
                 <element signature="e#2470#2542#0" expanded="false" />
@@ -652,8 +652,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/marker_control_python/marker_control_module.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1600">
-          <caret line="497" column="26" lean-forward="false" selection-start-line="497" selection-start-column="26" selection-end-line="497" selection-end-column="26" />
+        <state relative-caret-position="592">
+          <caret line="550" column="28" lean-forward="false" selection-start-line="550" selection-start-column="28" selection-end-line="550" selection-end-column="28" />
           <folding>
             <element signature="e#1976#1998#0" expanded="true" />
             <element signature="e#2470#2542#0" expanded="false" />
