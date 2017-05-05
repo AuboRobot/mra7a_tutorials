@@ -5,3 +5,4 @@ qtbuild/
 sender
 libIKOptimalHandler.so
 .DS_Store
+marker_control_module.pyc

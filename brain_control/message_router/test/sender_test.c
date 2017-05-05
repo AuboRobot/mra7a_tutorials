@@ -60,55 +60,55 @@ std::string mycmd;
         std::cout<<"-------------------------------------------------"<<std::endl;
         std::getline(std::cin,mycmd);
         if(!mycmd.compare("0")){
-	    strcpy(buf,"update marker");
+	    strcpy(buf,"update marker\n");
 	}
         else if(!mycmd.compare("1")){
-	    strcpy(buf,"Z");
+	    strcpy(buf,"Z\n");
 	}
         else if(!mycmd.compare("2")){
-	    strcpy(buf,"-Z");
+	    strcpy(buf,"-Z\n");
 	}
         else if(!mycmd.compare("3")){
-	    strcpy(buf, "X");
+	    strcpy(buf, "X\n");
 	}
         else if(!mycmd.compare("4")){
-	    strcpy(buf,"-X");
+	    strcpy(buf,"-X\n");
 	}
         else if(!mycmd.compare("5")){
-	    strcpy(buf, "Y");
+	    strcpy(buf, "Y\n");
 	}
         else if(!mycmd.compare("6")){
-	    strcpy(buf, "-Y");
+	    strcpy(buf, "-Y\n");
 	}
         else if(!mycmd.compare("7")){
-	    strcpy(buf, "Roll");
+	    strcpy(buf, "Roll\n");
 	}
         else if(!mycmd.compare("8")){
-	    strcpy(buf, "-Roll");
+	    strcpy(buf, "-Roll\n");
 	}
         else if(!mycmd.compare("9")){
-	    strcpy(buf,"Pitch");
+	    strcpy(buf,"Pitch\n");
 	}
         else if(!mycmd.compare("10")){
-	    strcpy(buf,"-Pitch");
+	    strcpy(buf,"-Pitch\n");
 	}
         else if(!mycmd.compare("11")){
-	    strcpy(buf,"Yaw");
+	    strcpy(buf,"Yaw\n");
 	}
         else if(!mycmd.compare("12")){
-	    strcpy(buf,"-Yaw");
+	    strcpy(buf,"-Yaw\n");
 	}
 	else if(!mycmd.compare("13")){
-	    strcpy(buf,"Step2");
+	    strcpy(buf,"Step2\n");
 	}
 	else if(!mycmd.compare("14")){
-	    strcpy(buf,"Step5");
+	    strcpy(buf,"Step5\n");
 	}
         else if(!mycmd.compare("15")){
-	    strcpy(buf,"Step20");
+	    strcpy(buf,"Step20\n");
 	}
         else if(!mycmd.compare("16")){
-	    strcpy(buf,"gripper");
+	    strcpy(buf,"gripper\n");
 	}
         else {
 	    strcpy(buf,mycmd.c_str());
