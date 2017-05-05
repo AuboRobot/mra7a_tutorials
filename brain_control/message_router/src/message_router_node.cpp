@@ -40,55 +40,55 @@ void switch_msg_to_joy(const char *str)
 //    case hash_compile_time("Z\n"):
 //        joy_msg.buttons[8] = 1;
 //        break;
-    case hash_compile_time("Z"):
+    case hash_compile_time("Z\n"):
         joy_msg.buttons[8] = 1;
         break;
-    case hash_compile_time("-Z"):
+    case hash_compile_time("-Z\n"):
         joy_msg.buttons[9] = 1;
         break;
-    case hash_compile_time("X"):
+    case hash_compile_time("X\n"):
         joy_msg.axes[1] = 2.5;
         break;
-    case hash_compile_time("-X"):
+    case hash_compile_time("-X\n"):
         joy_msg.axes[1] = -2.5;
         break;
-    case hash_compile_time("Y"):
+    case hash_compile_time("Y\n"):
         joy_msg.axes[0] = 2.5;
         break;
-    case hash_compile_time("-Y"):
+    case hash_compile_time("-Y\n"):
         joy_msg.axes[0] = -2.5;
         break;
-    case hash_compile_time("Roll"):
+    case hash_compile_time("Roll\n"):
         joy_msg.buttons[7] = 1;
         break;
-    case hash_compile_time("-Roll"):
+    case hash_compile_time("-Roll\n"):
         joy_msg.buttons[5] = 1;
         break;
-    case hash_compile_time("Pitch"):
+    case hash_compile_time("Pitch\n"):
         joy_msg.buttons[4] = 1;
         break;
-    case hash_compile_time("-Pitch"):
+    case hash_compile_time("-Pitch\n"):
         joy_msg.buttons[6] = 1;
         break;
-    case hash_compile_time("Yaw"):
+    case hash_compile_time("Yaw\n"):
         joy_msg.buttons[10] = 1;
         break;
-    case hash_compile_time("-Yaw"):
+    case hash_compile_time("-Yaw\n"):
         joy_msg.buttons[11] = 1;
         break;
-    case hash_compile_time("Step2"):
+    case hash_compile_time("Step2\n"):
         joy_msg.buttons[17] = 1;
         break;
-    case hash_compile_time("Step5"):
+    case hash_compile_time("Step5\n"):
         joy_msg.buttons[12] = 1;
         break;
-    case hash_compile_time("Step20"):
+    case hash_compile_time("Step20\n"):
         joy_msg.buttons[14] = 1;
         break;
-    case hash_compile_time("update marker"):
+    case hash_compile_time("update marker\n"):
         joy_msg.buttons[3] = 1;
         break;
-    case hash_compile_time("gripper"):
+    case hash_compile_time("gripper\n"):
         joy_msg.buttons[16] = 1;
         break;
     default:
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
     struct sockaddr_in addr, peeraddr; //socket net address
     socklen_t len;
     std::string msg;
-    char buf[N] = {0};
+    //char buf[N] = {0};
     //open UDP socket
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
         perror("socket");
@@ -146,6 +146,7 @@ int main(int argc, char** argv)
     len = sizeof(peeraddr);
     memset(&peeraddr, 0, sizeof(peeraddr));
     while (ros::ok()) {
+        char buf[N] = {0};
         recvfrom(sockfd, buf, N, 0, (struct sockaddr *)&peeraddr, &len);
         printf("from %s: %s\n", inet_ntoa(peeraddr.sin_addr), buf);
 
