@@ -411,9 +411,9 @@ class MoveitJoy:
         y_diff = signedSquare(status.left_analog_x) / scale
         # z
         if status.L2:
-            z_diff = 0.001 #default 0.005
+            z_diff = 0.002 #default 0.005
         elif status.R2:
-            z_diff = -0.001 #default 0.005
+            z_diff = -0.002 #default 0.005
         else:
             z_diff = 0.0
         if self.history.all(lambda s: s.L2) or self.history.all(lambda s: s.R2):
@@ -435,7 +435,7 @@ class MoveitJoy:
         roll = 0.0
         pitch = 0.0
         yaw = 0.0
-        DTHETA = 0.010  #default 0.005
+        DTHETA = 0.020  #default 0.005
         if status.L1:
             if self.history.all(lambda s: s.L1):
                 yaw = yaw + DTHETA * 2

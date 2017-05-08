@@ -136,7 +136,7 @@ int main(int argc, char** argv) {
     std::vector<double> current_state;
 
     std::vector<std::vector<double> > traj_interpolated;
-    ros::Rate loop_rate(150);
+    ros::Rate loop_rate(100);
 
     geometry_msgs::PoseStamped joy_pose_stamped;
 

@@ -34,7 +34,7 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-from joy_control.joy_control_module import MoveitJoy
+from joy_control_python.joy_control_module import MoveitJoy
 import rospy
 
 if __name__ == "__main__":
