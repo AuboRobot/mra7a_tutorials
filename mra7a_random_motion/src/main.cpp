@@ -9,6 +9,10 @@ int main(int argc, char **argv)
     spinner.start();
 
     moveit::planning_interface::MoveGroup group("arm");
+    group.setPlannerId("RRTConnectkConfigDefault");
+    group.setNumPlanningAttempts(3);
+    group.allowReplanning(true);
+    group.setPlanningTime(10);//10s
 
     while(ros::ok()){
         group.setRandomTarget();
