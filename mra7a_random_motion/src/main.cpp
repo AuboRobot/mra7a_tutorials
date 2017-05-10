@@ -5,7 +5,7 @@
 
 void add_object(ros::NodeHandle &node_handle)
 {
-    ros::Duration sleep_time(10.0);
+    ros::Duration sleep_time(5.0);
     ros::Publisher planning_scene_diff_publisher = node_handle.advertise<moveit_msgs::PlanningScene>("planning_scene", 1);
     while (planning_scene_diff_publisher.getNumSubscribers() < 1)
     {
@@ -35,7 +35,7 @@ void add_object(ros::NodeHandle &node_handle)
     primitive.dimensions.resize(3);
     primitive.dimensions[0] = 1.5;
     primitive.dimensions[1] = 1.5;
-    primitive.dimensions[2] = 0.15;
+    primitive.dimensions[2] = 0.17;
 
     attached_object.object.primitives.push_back(primitive);
     attached_object.object.primitive_poses.push_back(pose);
