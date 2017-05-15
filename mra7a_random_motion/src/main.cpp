@@ -28,7 +28,6 @@ void add_object(ros::NodeHandle &node_handle)
     /* A default pose */
     geometry_msgs::Pose pose;
     pose.orientation.w = 1.0;
-
     /* Define a box to be attached */
     shape_msgs::SolidPrimitive primitive;
     primitive.type = primitive.BOX;
@@ -37,8 +36,66 @@ void add_object(ros::NodeHandle &node_handle)
     primitive.dimensions[1] = 1.5;
     primitive.dimensions[2] = 0.17;
 
+
+    geometry_msgs::Pose pose2;
+    pose2.orientation.w = 1.0;
+    pose2.position.x = 0.6;
+    pose2.position.y = 0;
+    pose2.position.z = 1;
+    shape_msgs::SolidPrimitive primitive2;
+    primitive2.type = primitive2.BOX;
+    primitive2.dimensions.resize(3);
+    primitive2.dimensions[0] = 1.5;
+    primitive2.dimensions[1] = 0.1;
+    primitive2.dimensions[2] = 1.5;
+
+    geometry_msgs::Pose pose3;
+    pose3.orientation.w = 1.0;
+    pose3.position.x = -0.6;
+    pose3.position.y = 0;
+    pose3.position.z = 1;
+    shape_msgs::SolidPrimitive primitive3;
+    primitive3.type = primitive3.BOX;
+    primitive3.dimensions.resize(3);
+    primitive3.dimensions[0] = 1.5;
+    primitive3.dimensions[1] = 0.1;
+    primitive3.dimensions[2] = 1.5;
+
+    geometry_msgs::Pose pose4;
+    pose4.orientation.w = 1.0;
+    pose4.position.x = 0.6;
+    pose4.position.y = 0;
+    pose4.position.z = 0.75;
+    shape_msgs::SolidPrimitive primitive4;
+    primitive4.type = primitive4.BOX;
+    primitive4.dimensions.resize(3);
+    primitive4.dimensions[0] = 0.01;
+    primitive4.dimensions[1] = 1.5;
+    primitive4.dimensions[2] = 1.5;
+
+    geometry_msgs::Pose pose5;
+    pose5.orientation.w = 1.0;
+    pose5.position.x = -0.6;
+    pose5.position.y = 0;
+    pose5.position.z = 0.75;
+    shape_msgs::SolidPrimitive primitive5;
+    primitive5.type = primitive5.BOX;
+    primitive5.dimensions.resize(3);
+    primitive5.dimensions[0] = 0.1;
+    primitive5.dimensions[1] = 1.5;
+    primitive5.dimensions[2] = 1.5;
+
+
     attached_object.object.primitives.push_back(primitive);
     attached_object.object.primitive_poses.push_back(pose);
+//    attached_object.object.primitives.push_back(primitive2);
+//    attached_object.object.primitive_poses.push_back(pose2);
+//    attached_object.object.primitives.push_back(primitive3);
+//    attached_object.object.primitive_poses.push_back(pose3);
+//    attached_object.object.primitives.push_back(primitive4);
+//    attached_object.object.primitive_poses.push_back(pose4);
+//    attached_object.object.primitives.push_back(primitive5);
+//    attached_object.object.primitive_poses.push_back(pose5);
 
     // Note that attaching an object to the robot requires
     // the corresponding operation to be specified as an ADD operation
@@ -55,6 +112,14 @@ void add_object(ros::NodeHandle &node_handle)
     planning_scene.world.collision_objects.push_back(attached_object.object);
     planning_scene.is_diff = true;
     planning_scene_diff_publisher.publish(planning_scene);
+
+
+
+
+
+
+
+
     sleep_time.sleep();
 }
 
@@ -65,7 +130,7 @@ int main(int argc, char **argv)
     ros::NodeHandle node_handle;
     ros::AsyncSpinner spinner(1);
     spinner.start();
-
+sleep(4);
     add_object(node_handle);
 
     moveit::planning_interface::MoveGroup group("arm");
