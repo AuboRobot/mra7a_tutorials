@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <include file="$(find mra_control)/launch/mra7a/mra7a_hw_position_bingup_test.launch">
+  </include>
+
+  <include file="$(find mra7a_gazebo)/launch/mra7a_bringup_rviz.launch">
+  </include>
+
+  <node name="joy_control_python" pkg="joy_control_python" type="joy_control_start.py" output="screen">  
+  </node>
+
+  <node name="joystick_control_cartesian_server" pkg="joystick_control_server" type="joystick_control_server_cartesian_node">
+  </node>
+
+
+
+</launch>

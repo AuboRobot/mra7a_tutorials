@@ -135,7 +135,7 @@ include_directories(
 
 ## Declare a C++ executable
  add_executable(joystick_control_server_node src/joystick_control_server.cpp)
-
+ add_executable(joystick_control_server_cartesian_node src/joystick_control_server_cartesian.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(joystick_control_server_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -147,6 +147,10 @@ include_directories(
 target_link_libraries(joystick_control_server_node ${catkin_LIBRARIES}
  )
 add_dependencies(joystick_control_server_node ${catkin_EXPORTED_TARGETS}) # don't build until necessary msgs are finish
+target_link_libraries(joystick_control_server_cartesian_node ${catkin_LIBRARIES}
+ )
+add_dependencies(joystick_control_server_cartesian_node ${catkin_EXPORTED_TARGETS}) # don't build until necessary msgs are finish
+
 #############
 ## Install ##
 #############
