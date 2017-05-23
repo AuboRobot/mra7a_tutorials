@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(moveit_visual_tools)
-
+#support C++11
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=c++0x")
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS
   rviz_visual_tools
