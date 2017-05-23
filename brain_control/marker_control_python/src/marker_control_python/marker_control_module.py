@@ -452,14 +452,14 @@ class MoveitJoy:
             DTHETA = 0.35
         if status.L1:
             if self.history.all(lambda s: s.L1):
-                yaw = yaw + DTHETA * 2
+                yaw = yaw + DTHETA * 5
             else:
-                yaw = yaw + DTHETA
+                yaw = yaw + DTHETA * 5
         elif status.R1:
             if self.history.all(lambda s: s.R1):
-                yaw = yaw - DTHETA * 2
+                yaw = yaw - DTHETA * 5
             else:
-                yaw = yaw - DTHETA
+                yaw = yaw - DTHETA * 5
         if status.up:
             if self.history.all(lambda s: s.up):
                 pitch = pitch + DTHETA * 2
