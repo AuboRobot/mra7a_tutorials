@@ -123,7 +123,7 @@ include_directories(
  target_link_libraries(IKOptimalHandler
    ${catkin_LIBRARIES}
  )
-set_target_properties(IKOptimalHandler PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+#set_target_properties(IKOptimalHandler PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 # add_dependencies(IKOptimalHandler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 

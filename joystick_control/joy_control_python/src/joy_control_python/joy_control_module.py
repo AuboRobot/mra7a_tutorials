@@ -406,14 +406,14 @@ class MoveitJoy:
         new_pose.header.stamp = rospy.Time(0.0)
         # move in local
         dist = status.left_analog_y * status.left_analog_y + status.left_analog_x * status.left_analog_x
-        scale = 1000.0 #default 200
+        scale = 800.0 #default 200 last is 1000
         x_diff = signedSquare(status.left_analog_y) / scale
         y_diff = signedSquare(status.left_analog_x) / scale
         # z
         if status.L2:
-            z_diff = 0.002 #default 0.005
+            z_diff = 0.003 #default 0.005 last is 0.002
         elif status.R2:
-            z_diff = -0.002 #default 0.005
+            z_diff = -0.003 #default 0.005 last is 0.002
         else:
             z_diff = 0.0
         if self.history.all(lambda s: s.L2) or self.history.all(lambda s: s.R2):
