@@ -100,8 +100,8 @@ int main(int argc, char** argv) {
     /*subscribe /joy_pose topic*/
     ros::Subscriber joystick_pose_sub = n_.subscribe("/joy_pose",10,joystick_pose_callback);
 
-    ros::Publisher ik_pub = n_.advertise<std_msgs::String>("/detect_ik_solution",1);
-    std_msgs::String ik_msg;
+//    ros::Publisher ik_pub = n_.advertise<std_msgs::String>("/detect_ik_solution",1);
+//    std_msgs::String ik_msg;
 
     /*choose optimal ik solution*/
     IKOptimalHandler ikOptimalHandler;
@@ -216,8 +216,8 @@ int main(int argc, char** argv) {
                 traj_interpolated = interpolate1(current_joint_values,single_optimal_joint_values,DOF,0.004);//0.004
 
                 if(traj_interpolated.size() != 0){
-                    ik_msg.data = "has ik";
-                    ik_pub.publish(ik_msg);
+//                    ik_msg.data = "has ik";
+//                    ik_pub.publish(ik_msg);
                     //Low-pass filter to smooth the trajectory, which will reduce the jump between adjacent two joints.
                     smoothingTrajectoryFilter.applyFilter(traj_interpolated);
 
@@ -249,8 +249,8 @@ int main(int argc, char** argv) {
             } else {
                 ROS_ERROR("not found ik!");
                 joy_pose_deque.clear();
-                ik_msg.data = "has no ik";
-                ik_pub.publish(ik_msg);
+//                ik_msg.data = "has no ik";
+//                ik_pub.publish(ik_msg);
             }
 
 
