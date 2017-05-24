@@ -7,6 +7,7 @@
 #include <mra_basic/config.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <smoothing_trajectory_filter_test/smoothing_trajectory_filter.h>
+#include <std_msgs/String.h>
 
 std::vector<std::vector<double> > interpolate1(const std::vector<double> &array_1,
                                                const std::vector<double> &array_2,
@@ -99,6 +100,9 @@ int main(int argc, char** argv) {
     /*subscribe /joy_pose topic*/
     ros::Subscriber joystick_pose_sub = n_.subscribe("/joy_pose",10,joystick_pose_callback);
 
+    ros::Publisher ik_pub = n_.advertise<std_msgs::String>("/detect_ik_solution",1);
+    std_msgs::String ik_msg;
+
     /*choose optimal ik solution*/
     IKOptimalHandler ikOptimalHandler;
     ikOptimalHandler.echo_hello();
@@ -152,19 +156,19 @@ int main(int argc, char** argv) {
     geometry_msgs::PoseStamped joy_pose_stamped;
 
     /*set init pose*/
-//    for(int i=0; i<joints_array.data.size(); i++){
-//        joints_array.data[i] = -0.015;
-//    }
-//    for(int j=0; j<50; j++){
-//        for(int i=0; i<joints_array.data.size(); i++) {
-//            std_msgs::Float64 joint_p;
-//            joint_p.data = joints_array.data[i]*j;
-//            joint_position_publisher_v[i].publish(joint_p);
-//            double p = joint_p.data;
-//            kinematic_state->setJointPositions(mra_basic_config::joint_names[i],&p);
-//        }
-//        loop_rate.sleep();
-//    }
+    //    for(int i=0; i<joints_array.data.size(); i++){
+    //        joints_array.data[i] = -0.015;
+    //    }
+    //    for(int j=0; j<50; j++){
+    //        for(int i=0; i<joints_array.data.size(); i++) {
+    //            std_msgs::Float64 joint_p;
+    //            joint_p.data = joints_array.data[i]*j;
+    //            joint_position_publisher_v[i].publish(joint_p);
+    //            double p = joint_p.data;
+    //            kinematic_state->setJointPositions(mra_basic_config::joint_names[i],&p);
+    //        }
+    //        loop_rate.sleep();
+    //    }
 
 
     while (ros::ok()) {
@@ -192,12 +196,12 @@ int main(int argc, char** argv) {
 
             /*IK*/
             kinematic_state->copyJointGroupPositions(joint_model_group,current_joint_values);
-//            bool found_opt_ik = ikOptimalHandler.getSingleOptimalIKSolution(kinematic_state,
-//                                                                            joint_model_group,
-//                                                                            pose_end_link,
-//                                                                            current_joint_values,
-//                                                                            single_optimal_joint_values
-//                                                                            );
+            //            bool found_opt_ik = ikOptimalHandler.getSingleOptimalIKSolution(kinematic_state,
+            //                                                                            joint_model_group,
+            //                                                                            pose_end_link,
+            //                                                                            current_joint_values,
+            //                                                                            single_optimal_joint_values
+            //                                                                            );
             bool found_opt_ik  = kinematic_state->setFromIK(joint_model_group, pose_end_link);
             long t = getCurrentTime();//compute IK time;
             if (found_opt_ik) {
@@ -211,36 +215,42 @@ int main(int argc, char** argv) {
                 //                    traj_interpolated = ikOptimalHandler.interpolate(current_joint_values,single_optimal_joint_values,DOF)
                 traj_interpolated = interpolate1(current_joint_values,single_optimal_joint_values,DOF,0.004);//0.004
 
-                //Low-pass filter to smooth the trajectory, which will reduce the jump between adjacent two joints.
-                smoothingTrajectoryFilter.applyFilter(traj_interpolated);
+                if(traj_interpolated.size() != 0){
+                    ik_msg.data = "has ik";
+                    ik_pub.publish(ik_msg);
+                    //Low-pass filter to smooth the trajectory, which will reduce the jump between adjacent two joints.
+                    smoothingTrajectoryFilter.applyFilter(traj_interpolated);
 
-                /*cycle to publish the joint values*/
-                std::vector<std::vector<double> >::iterator i;
-                std::vector<double>::iterator j;
-                std::vector<double> joints;
-                for (i=traj_interpolated.begin(); i!=traj_interpolated.end(); i++) {
-                    joints = *i;
-                    int k = 0;
-                    for(j=joints.begin(); j!=joints.end(); j++) {
-                        joints_array.data[k] = *j;
-                        std::cout<<"["<<joints_array.data[k] <<"]"<<std::endl;
-                        k++;
-                    }
-                    std::cout<<std::endl;
-                    //pub_moveJ.publish(joints_array);
+                    /*cycle to publish the joint values*/
+                    std::vector<std::vector<double> >::iterator i;
+                    std::vector<double>::iterator j;
+                    std::vector<double> joints;
+                    for (i=traj_interpolated.begin(); i!=traj_interpolated.end(); i++) {
+                        joints = *i;
+                        int k = 0;
+                        for(j=joints.begin(); j!=joints.end(); j++) {
+                            joints_array.data[k] = *j;
+                            std::cout<<"["<<joints_array.data[k] <<"]"<<std::endl;
+                            k++;
+                        }
+                        std::cout<<std::endl;
+                        //pub_moveJ.publish(joints_array);
 
-                    for(int i=0; i<joints_array.data.size(); i++) {
-                        std_msgs::Float64 joint_p;
-                        joint_p.data = joints_array.data[i];
-                        joint_position_publisher_v[i].publish(joint_p);
+                        for(int i=0; i<joints_array.data.size(); i++) {
+                            std_msgs::Float64 joint_p;
+                            joint_p.data = joints_array.data[i];
+                            joint_position_publisher_v[i].publish(joint_p);
+                        }
+                        ros::spinOnce();
+                        loop_rate.sleep();
                     }
-                    ros::spinOnce();
-                    loop_rate.sleep();
                 }
 
             } else {
                 ROS_ERROR("not found ik!");
                 joy_pose_deque.clear();
+                ik_msg.data = "has no ik";
+                ik_pub.publish(ik_msg);
             }
 
 
