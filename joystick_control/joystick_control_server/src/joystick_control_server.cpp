@@ -112,7 +112,6 @@ int main(int argc, char** argv) {
     std::vector<double> current_joint_values;
     std::vector<double> single_optimal_joint_values;
 
-
     /*get endlink pose*/
     ROS_INFO("joint_model_group_right-->end effector name:%s",joint_model_group->getEndEffectorName().c_str());
     geometry_msgs::Pose pose_end_link;
