@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
     //Initiate ROS
     ros::init(argc, argv, "joystick_control_server");
     ros::NodeHandle n_;
-    ros::AsyncSpinner spinner(1);
+    ros::AsyncSpinner spinner(4);
     spinner.start();
 
     /*SmoothingTrajectoryFilter*/
@@ -171,7 +171,7 @@ int main(int argc, char** argv) {
     while (ros::ok()) {
         ros::spinOnce();
         if (joy_pose_deque.size() != 0) {
-            ROS_INFO("dequeue size:%d",joy_pose_deque.size());
+            ROS_INFO("dequeue size:%d",int(joy_pose_deque.size()));
             joy_pose_stamped = joy_pose_deque.front();//get the first of the queue;
             pose_end_link = joy_pose_stamped.pose;
             joy_pose_deque.pop_front();//delete the first of the queue;
@@ -235,7 +235,7 @@ int main(int argc, char** argv) {
                         joint_p.data = joints_array.data[i];
                         joint_position_publisher_v[i].publish(joint_p);
                     }
-
+                    ros::spinOnce();
                     loop_rate.sleep();
                 }
 

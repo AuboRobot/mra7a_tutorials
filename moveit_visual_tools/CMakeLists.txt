@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(moveit_visual_tools)
+
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS
   rviz_visual_tools
