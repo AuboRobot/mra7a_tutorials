@@ -560,4 +560,7 @@ class MoveitJoy:
             # update the joy pose in the Rviz
             self.joy_pose_pub.publish(self.pre_pose) 
             self.marker_lock.release()
+            self.marker_lock.acquire()
+            self.initial_poses[self.current_pose_topic.split("/")[-1]] = pre_pose.pose
+            self.marker_lock.release()
 
