@@ -317,6 +317,19 @@ class MoveitJoy:
                                                        self.markerCB, queue_size=1)
         self.sub = rospy.Subscriber("/joy", Joy, self.joyCB, queue_size=1)
         #self.marker_pose_pub = rospy.Publisher("marker_pose", PoseStamped, queue_size=1)
+        #if no ik, don't plan and execute, move the joy pose back.
+        self.sub_detect_ik_solution = rospy.Subscriber("/detect_ik_solution",
+                                                       String,
+                                                       self.detect_ik_callback,
+                                                       queue_size=1)
+        self.has_ik = False
+
+    def detect_ik_callback(self,msg):
+        if msg.data == 'has ik':
+            self.has_ik = True
+        if msg.data == 'has no ik':
+            self.has_ik = False
+        rospy.loginfo("detect_ik_callabck: "+msg.data)
     def updatePlanningGroup(self, next_index):
         if next_index >= len(self.planning_groups_keys):
             self.current_planning_group_index = 0
@@ -411,15 +424,15 @@ class MoveitJoy:
         y_diff = signedSquare(status.left_analog_x) / scale
         # z
         if status.L2:
-            z_diff = 0.003 #default 0.005 last is 0.002
+            z_diff = 0.005 #default 0.005 last is 0.002
         elif status.R2:
-            z_diff = -0.003 #default 0.005 last is 0.002
+            z_diff = -0.005 #default 0.005 last is 0.002
         else:
             z_diff = 0.0
         if self.history.all(lambda s: s.L2) or self.history.all(lambda s: s.R2):
-            z_scale = 4.0
-        else:
             z_scale = 2.0
+        else:
+            z_scale = 1.0
         local_move = numpy.array((x_diff, y_diff,
                                   z_diff * z_scale,
                                   1.0))
@@ -529,13 +542,22 @@ class MoveitJoy:
             self.pose_pub.publish(new_pose)
             self.joy_pose_pub.publish(new_pose)
             self.prev_time = now
-        # sync start state to the real robot state
-        self.counter = self.counter + 1
-        if self.counter % 10:
+        if self.has_ik:
+            # sync start state to the real robot state
+            self.counter = self.counter + 1
+            if self.counter % 10:
             self.update_start_state_pub.publish(Empty())
-        self.pre_pose = new_pose
-        self.marker_lock.release()
-        # update self.initial_poses
-        self.marker_lock.acquire()
-        self.initial_poses[self.current_pose_topic.split("/")[-1]] = new_pose.pose
-        self.marker_lock.release()
+            self.pre_pose = new_pose
+            self.marker_lock.release()
+            # update self.initial_poses
+            self.marker_lock.acquire()
+            self.initial_poses[self.current_pose_topic.split("/")[-1]] = new_pose.pose
+            self.marker_lock.release()
+        else:
+            rospy.loginfo("no ik")
+            # update the goal state(orange)
+            self.pose_pub.publish(self.pre_pose)
+            # update the joy pose in the Rviz
+            self.joy_pose_pub.publish(self.pre_pose) 
+            self.marker_lock.release()
+
