@@ -9,6 +9,7 @@
   <node name="joy_control_python" pkg="joy_control_python" type="joy_control_start.py" output="screen">  
   </node>
 
+  <rosparam file="$(find joystick_control_server)/config/smoothing_filter.yaml" command="load" />
   <node name="joystick_control_server" pkg="joystick_control_server" type="joystick_control_server_node">
   </node>
 

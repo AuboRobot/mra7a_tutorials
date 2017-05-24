@@ -6,7 +6,7 @@
 #include <std_msgs/Float64.h>
 #include <mra_basic/config.h>
 #include <std_msgs/Float64MultiArray.h>
-
+#include <smoothing_trajectory_filter_test/smoothing_trajectory_filter.h>
 
 std::vector<std::vector<double> > interpolate1(const std::vector<double> &array_1,
                                                const std::vector<double> &array_2,
@@ -87,11 +87,23 @@ int main(int argc, char** argv) {
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
+    /*SmoothingTrajectoryFilter*/
+    std::vector<double> filter_coef_;
+    industrial_trajectory_filters::SmoothingTrajectoryFilter smoothingTrajectoryFilter;
+    filter_coef_ = smoothingTrajectoryFilter.get_coef_param(n_);
+    for(int i=0; i<filter_coef_.size(); i++){
+        std::cout<<filter_coef_[i]<<" "<<std::endl;
+    }
+    smoothingTrajectoryFilter.init(filter_coef_);
+
+    /*subscribe /joy_pose topic*/
     ros::Subscriber joystick_pose_sub = n_.subscribe("/joy_pose",10,joystick_pose_callback);
 
+    /*choose optimal ik solution*/
     IKOptimalHandler ikOptimalHandler;
     ikOptimalHandler.echo_hello();
 
+    /*IK related*/
     robot_model_loader::RobotModelLoader robot_model_loader("robot_description");
     robot_model::RobotModelPtr kinematic_model = robot_model_loader.getModel();
     robot_state::RobotStatePtr kinematic_state(new robot_state::RobotState(kinematic_model));
@@ -200,7 +212,10 @@ int main(int argc, char** argv) {
                 //                    traj_interpolated = ikOptimalHandler.interpolate(current_joint_values,single_optimal_joint_values,DOF)
                 traj_interpolated = interpolate1(current_joint_values,single_optimal_joint_values,DOF,0.004);//0.004
 
+                //Low-pass filter to smooth the trajectory, which will reduce the jump between adjacent two joints.
+                smoothingTrajectoryFilter.applyFilter(traj_interpolated);
 
+                /*cycle to publish the joint values*/
                 std::vector<std::vector<double> >::iterator i;
                 std::vector<double>::iterator j;
                 std::vector<double> joints;
@@ -213,7 +228,7 @@ int main(int argc, char** argv) {
                         k++;
                     }
                     std::cout<<std::endl;
-                    pub_moveJ.publish(joints_array);
+                    //pub_moveJ.publish(joints_array);
 
                     for(int i=0; i<joints_array.data.size(); i++) {
                         std_msgs::Float64 joint_p;
