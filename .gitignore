@@ -6,3 +6,4 @@ sender
 libIKOptimalHandler.so
 .DS_Store
 marker_control_module.pyc
+joy_control_module.pyc
