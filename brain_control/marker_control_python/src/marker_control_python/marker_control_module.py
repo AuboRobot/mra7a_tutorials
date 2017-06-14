@@ -576,6 +576,8 @@ class MoveitJoy:
                     rate.sleep()
                 self.is_received_display_planned_path = False
                 rate.sleep()
+                rate.sleep()
+                rate.sleep()
                 if self.can_execute:
                     rospy.loginfo("Execute")
                     self.execute_pub.publish(Empty())

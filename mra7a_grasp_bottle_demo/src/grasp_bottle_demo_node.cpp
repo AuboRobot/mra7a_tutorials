@@ -108,7 +108,7 @@ bool get_bottle_pose()
         Avg_z = Avg_z/30.0;
         Avg_x = 0.5;
         Avg_y = -0.4;
-        Avg_z = 0.05;
+        Avg_z = 0.45;
 
         tf::Transform transform_object_to_world;
         transform_object_to_world.setOrigin(tf::Vector3(Avg_x,Avg_y,Avg_z));
@@ -185,8 +185,8 @@ bool get_glass_pose()
         Avg_y = Avg_y/30.0;
         Avg_z = Avg_z/30.0;
         Avg_x = 0.5;
-        Avg_y = -0.35;
-        Avg_z = 0.05;
+        Avg_y = -0.2;
+        Avg_z = 0.45;
         /*tf: glass to world*/
         tf::Transform transform_object_to_world;
         transform_object_to_world.setOrigin(tf::Vector3(Avg_x,Avg_y,Avg_z));
@@ -282,72 +282,79 @@ int main(int argc, char** argv){
                     success = group.plan(my_plan);
                     if(success){
                         group.execute(my_plan);
-                        sleep(1);
                         std::vector<double> joint_ready_fetch_value = group.getCurrentJointValues();
                         //ready catch
                         group.setPoseTarget(pose_ready_catch);
                         success = group.plan(my_plan);
                         if(success){
                             group.execute(my_plan);
-                            sleep(1);
                             std::vector<double> joint_ready_catch_value = group.getCurrentJointValues();
                             //gripper catch
                             gripper_command.data = 0;//close
                             gripper_pub.publish(gripper_command);
+                            sleep(2);
                             //ready pour
-//                            moveit_msgs::OrientationConstraint ocm;
-//                            ocm.link_name = "Link7";
-//                            ocm.header.frame_id = "base_link";
-//                            ocm.orientation.w = 1.0;
-//                            ocm.absolute_x_axis_tolerance = 0.1;
-//                            ocm.absolute_y_axis_tolerance = 0.1;
-//                            ocm.absolute_z_axis_tolerance = 0.1;
-//                            ocm.weight = 1.0;
-//                            moveit_msgs::Constraints test_constraints;
-//                            test_constraints.orientation_constraints.push_back(ocm);
-//                            group.setPathConstraints(test_constraints);
+                            std::vector<double> rpy = group.getCurrentRPY("Link7");
+                            tf::Quaternion q = tf::createQuaternionFromRPY(rpy[0],rpy[1],rpy[2]);
 
-//                            group.setPoseTarget(pose_ready_pour);
-//                            success = group.plan(my_plan);
-//                            if(success){
-//                                group.execute(my_plan);
-//                                sleep(1);
-//                                //pour
-//                                std::vector<double> joint_pour_value = group.getCurrentJointValues();
-//                                joint_pour_value[6] -= M_PI/2;
-//                                group.setJointValueTarget(joint_pour_value);
-//                                success = group.plan(my_plan);
-//                                if(success){
-//                                    group.execute(my_plan);
-//                                    sleep(1);
-//                                    //back to ready pour
-//                                    std::vector<double> joint_pour_value = group.getCurrentJointValues();
-//                                    joint_pour_value[6] += M_PI/2;
-//                                    group.setJointValueTarget(joint_pour_value);
-//                                    success = group.plan(my_plan);
-//                                    if(success){
-//                                        group.execute(my_plan);
-//                                        sleep(1);
-//                                        //back to ready catch
-//                                        group.setJointValueTarget(joint_ready_catch_value);
-//                                        success = group.plan(my_plan);
-//                                        if(success){
-//                                            group.execute(my_plan);
-//                                            sleep(1);
-//                                            //gripper open
-//                                            gripper_command.data = 1;//close
-//                                            gripper_pub.publish(gripper_command);
+                            moveit_msgs::OrientationConstraint ocm;
+                            ocm.link_name = "Link7";
+                            ocm.header.frame_id = "base_link";
+                            ocm.orientation.x = q.getX();
+                            ocm.orientation.y = q.getY();
+                            ocm.orientation.z = q.getZ();
+                            ocm.orientation.w = q.getW();
+                            ocm.absolute_x_axis_tolerance = 0.1;
+                            ocm.absolute_y_axis_tolerance = 0.1;
+                            ocm.absolute_z_axis_tolerance = 0.1;
+                            ocm.weight = 1.0;
+                            moveit_msgs::Constraints test_constraints;
+                            test_constraints.orientation_constraints.push_back(ocm);
+                            group.setPathConstraints(test_constraints);
+
+                            pose_ready_pour.orientation.x = q.getX();
+                            pose_ready_pour.orientation.y = q.getY();
+                            pose_ready_pour.orientation.z = q.getZ();
+                            pose_ready_pour.orientation.w = q.getW();
+                            group.setPoseTarget(pose_ready_pour);
+                            group.setPlanningTime(10.0);
+                            success = group.plan(my_plan);
+                            if(success){
+                                group.execute(my_plan);
+                                group.clearPathConstraints();
+                                //pour
+                                std::vector<double> joint_pour_value = group.getCurrentJointValues();
+                                joint_pour_value[6] -= M_PI/2;
+                                group.setJointValueTarget(joint_pour_value);
+                                success = group.plan(my_plan);
+                                if(success){
+                                    group.execute(my_plan);
+                                    //back to ready pour
+                                    std::vector<double> joint_pour_value = group.getCurrentJointValues();
+                                    joint_pour_value[6] += M_PI/2;
+                                    group.setJointValueTarget(joint_pour_value);
+                                    success = group.plan(my_plan);
+                                    if(success){
+                                        group.execute(my_plan);
+                                        //back to ready catch
+                                        group.setJointValueTarget(joint_ready_catch_value);
+                                        success = group.plan(my_plan);
+                                        if(success){
+                                            group.execute(my_plan);
+                                            //gripper open
+                                            gripper_command.data = 1;//close
+                                            gripper_pub.publish(gripper_command);
+                                            sleep(2);
                                             //back to ready fetch
                                             group.setJointValueTarget(joint_ready_fetch_value);
                                             success = group.plan(my_plan);
                                             if(success){
                                                 group.execute(my_plan);
-                                                sleep(1);
                                             }
-//                                        }
-//                                    }
-//                                }
-//                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
