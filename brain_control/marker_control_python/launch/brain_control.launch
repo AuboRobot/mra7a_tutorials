@@ -13,7 +13,7 @@
   </node>
 
   <node name="message_router" pkg="message_router" type="message_router_node" output="screen">
-    <param name="broadcast_ip" type="string" value="192.168.31.255"/>
+    <param name="broadcast_ip" type="string" value="192.168.80.255"/>
     <param name="broadcast_port" type="string" value="6000"/>
   </node>
 
