@@ -65,7 +65,7 @@ int main(int argc, char **argv)
     ros::NodeHandle node_handle;
     ros::AsyncSpinner spinner(1);
     spinner.start();
-
+sleep(10);
     add_object(node_handle);
 
     moveit::planning_interface::MoveGroup group("arm");
