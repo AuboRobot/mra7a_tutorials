@@ -33,62 +33,6 @@ geometry_msgs::Pose pose_ready_pour;
 
 tf::TransformListener* pListener = NULL;
 tf::TransformBroadcaster* pBroadcaster = NULL;
-void add_object(ros::NodeHandle &node_handle)
-{
-    ros::Duration sleep_time(5.0);
-    ros::Publisher planning_scene_diff_publisher = node_handle.advertise<moveit_msgs::PlanningScene>("planning_scene", 1);
-    while (planning_scene_diff_publisher.getNumSubscribers() < 1)
-    {
-        ros::WallDuration sleep_t(0.5);
-        sleep_t.sleep();
-    }
-
-    // Define the attached object message
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    // We will use this message to add or
-    // subtract the object from the world
-    // and to attach the object to the robot
-    moveit_msgs::AttachedCollisionObject attached_object;
-    /* The header must contain a valid TF frame*/
-    attached_object.object.header.frame_id = "base_link";
-    /* The id of the object */
-    attached_object.object.id = "box";
-
-    /* A default pose */
-    geometry_msgs::Pose pose;
-    pose.position.x = 1.16;
-    pose.position.z = 0.18;
-    pose.orientation.w = 1.0;
-    /* Define a box to be attached */
-    shape_msgs::SolidPrimitive primitive;
-    primitive.type = primitive.BOX;
-    primitive.dimensions.resize(3);
-    primitive.dimensions[0] = 1.8;
-    primitive.dimensions[1] = 1.8;
-    primitive.dimensions[2] = 0.1;
-
-
-    attached_object.object.primitives.push_back(primitive);
-    attached_object.object.primitive_poses.push_back(pose);
-
-    // Note that attaching an object to the robot requires
-    // the corresponding operation to be specified as an ADD operation
-    attached_object.object.operation = attached_object.object.ADD;
-
-    // Add an object into the environment
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    // Add the object into the environment by adding it to
-    // the set of collision objects in the "world" part of the
-    // planning scene. Note that we are using only the "object"
-    // field of the attached_object message here.
-    ROS_INFO("Adding the object into the world at the location of the right wrist.");
-    moveit_msgs::PlanningScene planning_scene;
-    planning_scene.world.collision_objects.push_back(attached_object.object);
-    planning_scene.is_diff = true;
-    planning_scene_diff_publisher.publish(planning_scene);
-
-    sleep_time.sleep();
-}
 
 void pose_transfer_gripper_to_link7(const geometry_msgs::Pose gripper_pose,geometry_msgs::Pose &link7_pose){
 
@@ -127,7 +71,7 @@ void pose_transfer_gripper_to_link7(const geometry_msgs::Pose gripper_pose,geome
 
     link7_to_base_transform = gripper_to_base_transform * link7_to_gripper_transform;
 
-    pBroadcaster->sendTransform(tf::StampedTransform(link7_to_base_transform, ros::Time::now(), "base_link", "Link7"));
+    pBroadcaster->sendTransform(tf::StampedTransform(link7_to_base_transform, ros::Time::now(), "base_link", "link7"));
 
     link7_pose.position.x = link7_to_base_transform.getOrigin().x();
     link7_pose.position.y = link7_to_base_transform.getOrigin().y();
@@ -150,25 +94,21 @@ bool get_bottle_pose()
     Avg_z = 0.0;
 
     try{
-                ros::Rate readRate(30);
-                for(size_t j =0;j<30;j++){
+        //        ros::Rate readRate(30);
+        //        for(size_t j =0;j<30;j++){
 
-                    pListener->lookupTransform("base_link", "bottle", ros::Time(0), STtransform);
-std::cout<<STtransform.getOrigin().getX()<<"  "<<STtransform.getOrigin().getY()<<"  "<<STtransform.getOrigin().getZ()<<"  "<<std::endl;
-                    Avg_x += STtransform.getOrigin().getX();
-                    Avg_y += STtransform.getOrigin().getY();
-                    Avg_z += STtransform.getOrigin().getZ();
-                    readRate.sleep();
-                }
-
-        Avg_x = Avg_x/30.0-0.07;
-        Avg_y = Avg_y/30.0+0.165;
-        Avg_z = Avg_z/30.0+0.28;
-        //Avg_x = 0.5;
-        //Avg_y = -0.4;
-        //Avg_z = 0.45;
-        std::cout<<"Result:"<<Avg_x<<"  "<<Avg_y<<"  "<<Avg_z<<"  "<<std::endl;
-
+        //            pListener->lookupTransform("base_link", "bottle", ros::Time(0), STtransform);
+        //            Avg_x += STtransform.getOrigin().getX();
+        //            Avg_y += STtransform.getOrigin().getY();
+        //            Avg_z += STtransform.getOrigin().getZ();
+        //            readRate.sleep();
+        //        }
+        Avg_x = Avg_x/30.0;
+        Avg_y = Avg_y/30.0;
+        Avg_z = Avg_z/30.0;
+        Avg_x = 0.5;
+        Avg_y = -0.4;
+        Avg_z = 0.45;
 
         tf::Transform transform_object_to_world;
         transform_object_to_world.setOrigin(tf::Vector3(Avg_x,Avg_y,Avg_z));
@@ -180,7 +120,7 @@ std::cout<<STtransform.getOrigin().getX()<<"  "<<STtransform.getOrigin().getY()<
         /*计算手抓抓水杯的起始位置和抓点位置*/
         geometry_msgs::Pose gripper_pose_start,gripper_pose_end;
         tf::Transform transform_gripper_to_object;
-        transform_gripper_to_object.setOrigin(tf::Vector3(-0.08 , 0 , 0));
+        transform_gripper_to_object.setOrigin(tf::Vector3(-0.15 , 0 , 0));
         q.setW(1.0);
         q.setRPY(0, M_PI_2, 0);
         transform_gripper_to_object.setRotation(q);
@@ -244,8 +184,8 @@ bool get_glass_pose()
         Avg_x = Avg_x/30.0;
         Avg_y = Avg_y/30.0;
         Avg_z = Avg_z/30.0;
-        Avg_x = 0.45;
-        Avg_y = 0.1;
+        Avg_x = 0.5;
+        Avg_y = -0.2;
         Avg_z = 0.45;
         /*tf: glass to world*/
         tf::Transform transform_object_to_world;
@@ -293,8 +233,6 @@ int main(int argc, char** argv){
     ros::NodeHandle n_;
     ros::AsyncSpinner spinner(4);
     spinner.start();
-    sleep(10);
-    add_object(n_);
     /*TF*/
     pListener = new tf::TransformListener;
     pBroadcaster = new tf::TransformBroadcaster;
@@ -309,13 +247,13 @@ int main(int argc, char** argv){
     /*inital_pose_values*/
     std::vector<double> inital_pose_values;
     inital_pose_values.resize(7);
-    inital_pose_values[0] = 1.71;
-    inital_pose_values[1] = 0.62;
-    inital_pose_values[2] = -0.15;
-    inital_pose_values[3] = -2.27;
-    inital_pose_values[4] = -1.56;
-    inital_pose_values[5] =  1.56;
-    inital_pose_values[6] = -1.66;
+    inital_pose_values[0] = 1.08;
+    inital_pose_values[1] = 0.14;
+    inital_pose_values[2] = 0.59;
+    inital_pose_values[3] = -1.86;
+    inital_pose_values[4] = -1.45;
+    inital_pose_values[5] = 1.49;
+    inital_pose_values[6] = -1.75;
     /*gripper publisher*/
     ros::Publisher gripper_pub = n_.advertise<std_msgs::Int8>(GRIPPER_COMMAND,1);
     std_msgs::Int8 gripper_command;
@@ -325,91 +263,63 @@ int main(int argc, char** argv){
     while(ros::ok()){
         ros::spinOnce();
         //input 123 to start
-        ROS_INFO("get bottle and glass pose--input 1:");
+        ROS_INFO("input 123");
         std::string mycmd;
         std::getline(std::cin,mycmd);
-        if(!mycmd.compare("1")){
+        if(!mycmd.compare("123")){
 
             bool getted_bottle = get_bottle_pose();
             bool getted_glass = get_glass_pose();
-
-	    
             if(getted_bottle && getted_glass){
                 //plan to the initial pose
                 group.setJointValueTarget(inital_pose_values);
                 bool success = group.plan(my_plan);
                 if(success){
-                    mycmd.clear();
-                    while(mycmd.compare("2")){
-                        ROS_INFO("go to init pose--input 2:");
-                        std::getline(std::cin,mycmd);
-                    }
                     group.execute(my_plan);
                     sleep(1);
                     //ready fetch
                     group.setPoseTarget(pose_ready_fetch);
                     success = group.plan(my_plan);
                     if(success){
-                        mycmd.clear();
-                        while(mycmd.compare("3")){
-                            ROS_INFO("go to ready fetch pose--input 3:");
-                            std::getline(std::cin,mycmd);
-                        }
                         group.execute(my_plan);
-sleep(1);
                         std::vector<double> joint_ready_fetch_value = group.getCurrentJointValues();
                         //ready catch
                         group.setPoseTarget(pose_ready_catch);
                         success = group.plan(my_plan);
                         if(success){
-                            mycmd.clear();
-                            while(mycmd.compare("4")){
-                                ROS_INFO("go to ready catch pose--input 4:");
-                                std::getline(std::cin,mycmd);
-                            }
                             group.execute(my_plan);
                             std::vector<double> joint_ready_catch_value = group.getCurrentJointValues();
                             //gripper catch
-                            mycmd.clear();
-                            while(mycmd.compare("5")){
-                                ROS_INFO("catch--input 5:");
-                                std::getline(std::cin,mycmd);
-                            }
                             gripper_command.data = 0;//close
                             gripper_pub.publish(gripper_command);
                             sleep(2);
                             //ready pour
-//                            std::vector<double> rpy = group.getCurrentRPY("Link7");
-//                            tf::Quaternion q = tf::createQuaternionFromRPY(rpy[0],rpy[1],rpy[2]);
+                            std::vector<double> rpy = group.getCurrentRPY("Link7");
+                            tf::Quaternion q = tf::createQuaternionFromRPY(rpy[0],rpy[1],rpy[2]);
 
-//                            moveit_msgs::OrientationConstraint ocm;
-//                            ocm.link_name = "Link7";
-//                            ocm.header.frame_id = "base_link";
-//                            ocm.orientation.x = q.getX();
-//                            ocm.orientation.y = q.getY();
-//                            ocm.orientation.z = q.getZ();
-//                            ocm.orientation.w = q.getW();
-//                            ocm.absolute_x_axis_tolerance = 0.1;
-//                            ocm.absolute_y_axis_tolerance = 0.1;
-//                            ocm.absolute_z_axis_tolerance = 0.1;
-//                            ocm.weight = 1.0;
-//                            moveit_msgs::Constraints test_constraints;
-//                            test_constraints.orientation_constraints.push_back(ocm);
-//                            group.setPathConstraints(test_constraints);
+                            moveit_msgs::OrientationConstraint ocm;
+                            ocm.link_name = "Link7";
+                            ocm.header.frame_id = "base_link";
+                            ocm.orientation.x = q.getX();
+                            ocm.orientation.y = q.getY();
+                            ocm.orientation.z = q.getZ();
+                            ocm.orientation.w = q.getW();
+                            ocm.absolute_x_axis_tolerance = 0.1;
+                            ocm.absolute_y_axis_tolerance = 0.1;
+                            ocm.absolute_z_axis_tolerance = 0.1;
+                            ocm.weight = 1.0;
+                            moveit_msgs::Constraints test_constraints;
+                            test_constraints.orientation_constraints.push_back(ocm);
+                            group.setPathConstraints(test_constraints);
 
-//                            pose_ready_pour.orientation.x = q.getX();
-//                            pose_ready_pour.orientation.y = q.getY();
-//                            pose_ready_pour.orientation.z = q.getZ();
-//                            pose_ready_pour.orientation.w = q.getW();
+                            pose_ready_pour.orientation.x = q.getX();
+                            pose_ready_pour.orientation.y = q.getY();
+                            pose_ready_pour.orientation.z = q.getZ();
+                            pose_ready_pour.orientation.w = q.getW();
                             group.setPoseTarget(pose_ready_pour);
                             group.setPlanningTime(10.0);
                             success = group.plan(my_plan);
                             if(success){
-                                mycmd.clear();
-                                while(mycmd.compare("6")){
-                                    ROS_INFO("go to ready pour pose--input 6:");
-                                    std::getline(std::cin,mycmd);
-                                }
                                 group.execute(my_plan);
                                 group.clearPathConstraints();
                                 //pour
@@ -418,11 +328,6 @@ sleep(1);
                                 group.setJointValueTarget(joint_pour_value);
                                 success = group.plan(my_plan);
                                 if(success){
-                                    mycmd.clear();
-                                    while(mycmd.compare("7")){
-                                        ROS_INFO("pour--input 7:");
-                                        std::getline(std::cin,mycmd);
-                                    }
                                     group.execute(my_plan);
                                     //back to ready pour
                                     std::vector<double> joint_pour_value = group.getCurrentJointValues();
@@ -430,28 +335,13 @@ sleep(1);
                                     group.setJointValueTarget(joint_pour_value);
                                     success = group.plan(my_plan);
                                     if(success){
-                                        mycmd.clear();
-                                        while(mycmd.compare("8")){
-                                            ROS_INFO("back to ready pour--input 8:");
-                                            std::getline(std::cin,mycmd);
-                                        }
                                         group.execute(my_plan);
                                         //back to ready catch
                                         group.setJointValueTarget(joint_ready_catch_value);
                                         success = group.plan(my_plan);
                                         if(success){
-                                            mycmd.clear();
-                                            while(mycmd.compare("9")){
-                                                ROS_INFO("back to ready catch--input 9:");
-                                                std::getline(std::cin,mycmd);
-                                            }
                                             group.execute(my_plan);
                                             //gripper open
-                                            mycmd.clear();
-                                            while(mycmd.compare("10")){
-                                                ROS_INFO("gripper open--input 10:");
-                                                std::getline(std::cin,mycmd);
-                                            }
                                             gripper_command.data = 1;//close
                                             gripper_pub.publish(gripper_command);
                                             sleep(2);
@@ -459,11 +349,6 @@ sleep(1);
                                             group.setJointValueTarget(joint_ready_fetch_value);
                                             success = group.plan(my_plan);
                                             if(success){
-                                                mycmd.clear();
-                                                while(mycmd.compare("11")){
-                                                    ROS_INFO("back to ready fetch--input 11:");
-                                                    std::getline(std::cin,mycmd);
-                                                }
                                                 group.execute(my_plan);
                                             }
                                         }
