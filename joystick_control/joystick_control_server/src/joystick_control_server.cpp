@@ -8,6 +8,7 @@
 #include <std_msgs/Float64MultiArray.h>
 #include <smoothing_trajectory_filter_test/smoothing_trajectory_filter.h>
 #include <std_msgs/String.h>
+//#include <tf2_eigen/tf2_eigen.h>
 
 std::vector<std::vector<double> > interpolate1(const std::vector<double> &array_1,
                                                const std::vector<double> &array_2,
@@ -112,6 +113,10 @@ int main(int argc, char** argv) {
     robot_model::RobotModelPtr kinematic_model = robot_model_loader.getModel();
     robot_state::RobotStatePtr kinematic_state(new robot_state::RobotState(kinematic_model));
     const robot_state::JointModelGroup* joint_model_group = kinematic_model->getJointModelGroup(group_name);
+
+//    Eigen to geometry_msgs
+//    Eigen::Affine3d aa = kinematic_state->getJointTransform("");
+//    geometry_msgs::TransformStamped bb = tf2::eigenToTransform(aa); #include <tf2_eigen/tf2_eigen.h>
 
     std::vector<double> current_joint_values;
     std::vector<double> single_optimal_joint_values;

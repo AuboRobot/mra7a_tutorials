@@ -1,6 +1,7 @@
 #include <moveit/move_group_interface/move_group.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
 #include <moveit_msgs/PlanningScene.h>
+#include <std_msgs/Float32MultiArray.h>
 
 
 void add_object(ros::NodeHandle &node_handle)
@@ -58,6 +59,12 @@ void add_object(ros::NodeHandle &node_handle)
     sleep_time.sleep();
 }
 
+std_msgs::Float32MultiArray eff_pose;
+void eff_pose_callback(const std_msgs::Float32MultiArrayConstPtr msg) {
+    for(int i=0; i<6; i++){
+        eff_pose.data.push_back(msg->data[i]);
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -65,15 +72,20 @@ int main(int argc, char **argv)
     ros::NodeHandle node_handle;
     ros::AsyncSpinner spinner(1);
     spinner.start();
-sleep(10);
+    sleep(10);
     add_object(node_handle);
 
+    ros::Subscriber eff_pose_sub = node_handle.subscribe("end_effector_pose", 1, eff_pose_callback);
+    eff_pose.data.resize(0);
+
+    /*moveit arm group*/
     moveit::planning_interface::MoveGroup group("arm");
     group.setPlannerId("RRTConnectkConfigDefault");
     group.setNumPlanningAttempts(3);
     group.allowReplanning(true);
     group.setPlanningTime(10);//10s
 
+    /*set end effector pose*/
     geometry_msgs::PoseStamped eff_target;
     eff_target.pose.position.x = 0.4;
     eff_target.pose.position.y = 0;
@@ -96,18 +108,27 @@ sleep(10);
 
     sleep(2);
 
+        while(ros::ok()){
+            ros::spinOnce();
+            if(eff_pose.data.size()){
+                eff_pose.data.resize(0);
+                eff_target.pose.position.x = eff_pose.data[0];
+                eff_target.pose.position.y = eff_pose.data[1];
+                eff_target.pose.position.z = eff_pose.data[2];
+                q = tf::createQuaternionFromRPY(eff_pose.data[3],eff_pose.data[4],eff_pose.data[5]);
+                eff_target.pose.orientation.x = q.getX();
+                eff_target.pose.orientation.y = q.getY();
+                eff_target.pose.orientation.z = q.getZ();
+                eff_target.pose.orientation.w = q.getW();
 
-//    while(ros::ok()){
-//        group.setRandomTarget();
+                group.setPoseTarget(eff_target);
 
-//        moveit::planning_interface::MoveGroup::Plan my_plan;
-//        bool success = group.plan(my_plan);
-//        ROS_INFO("Visualizing plan 1 (pose goal) %s",success?"":"FAILED");
-
-//        group.execute(my_plan);
-
-//        sleep(2);
-//    }
+                success = group.plan(my_plan);
+                ROS_INFO("Visualizing plan 1 (pose goal) %s",success?"":"FAILED");
+                group.execute(my_plan);
+                sleep(2);
+            }
+        }
 
     ros::spin();
     return 0;
