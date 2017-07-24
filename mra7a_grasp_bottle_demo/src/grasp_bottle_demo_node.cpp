@@ -154,7 +154,7 @@ bool get_bottle_pose()
                 for(size_t j =0;j<30;j++){
 
                     pListener->lookupTransform("base_link", "bottle", ros::Time(0), STtransform);
-std::cout<<STtransform.getOrigin().getX()<<"  "<<STtransform.getOrigin().getY()<<"  "<<STtransform.getOrigin().getZ()<<"  "<<std::endl;
+                    std::cout<<STtransform.getOrigin().getX()<<"  "<<STtransform.getOrigin().getY()<<"  "<<STtransform.getOrigin().getZ()<<"  "<<std::endl;
                     Avg_x += STtransform.getOrigin().getX();
                     Avg_y += STtransform.getOrigin().getY();
                     Avg_z += STtransform.getOrigin().getZ();
@@ -164,9 +164,11 @@ std::cout<<STtransform.getOrigin().getX()<<"  "<<STtransform.getOrigin().getY()<
         Avg_x = Avg_x/30.0-0.07;
         Avg_y = Avg_y/30.0+0.165;
         Avg_z = Avg_z/30.0+0.28;
-        //Avg_x = 0.5;
-        //Avg_y = -0.4;
-        //Avg_z = 0.45;
+/*TEST
+        Avg_x = 0.5;
+        Avg_y = -0.4;
+        Avg_z = 0.45;
+*/
         std::cout<<"Result:"<<Avg_x<<"  "<<Avg_y<<"  "<<Avg_z<<"  "<<std::endl;
 
 

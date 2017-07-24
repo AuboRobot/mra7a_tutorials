@@ -20,7 +20,7 @@ void add_object(ros::NodeHandle &node_handle)
     // subtract the object from the world
     // and to attach the object to the robot
     moveit_msgs::AttachedCollisionObject attached_object;
-    attached_object.link_name = "r_wrist_roll_link";
+    attached_object.link_name = "Link7";
     /* The header must contain a valid TF frame*/
     attached_object.object.header.frame_id = "base_link";
     /* The id of the object */
@@ -80,22 +80,22 @@ int main(int argc, char **argv)
 
     /*moveit arm group*/
     moveit::planning_interface::MoveGroup group("arm");
+    ROS_INFO("Reference frame: %s", group.getPlanningFrame().c_str());
     group.setPlannerId("RRTConnectkConfigDefault");
     group.setNumPlanningAttempts(3);
     group.allowReplanning(true);
     group.setPlanningTime(10);//10s
 
-    /*set end effector pose*/
-    geometry_msgs::PoseStamped eff_target;
-    eff_target.pose.position.x = 0.4;
-    eff_target.pose.position.y = 0;
-    eff_target.pose.position.z = 0.4;
+    /*set end effector pose, using Pose, don't use PoseStamp because of frame*/
+    geometry_msgs::Pose eff_target;
+    eff_target.position.x = 0.4;
+    eff_target.position.y = 0;
+    eff_target.position.z = 0.4;
     tf::Quaternion q = tf::createQuaternionFromRPY(0,1.57,0);
-    eff_target.pose.orientation.x = q.getX();
-    eff_target.pose.orientation.y = q.getY();
-    eff_target.pose.orientation.z = q.getZ();
-    eff_target.pose.orientation.w = q.getW();
-
+    eff_target.orientation.x = q.getX();
+    eff_target.orientation.y = q.getY();
+    eff_target.orientation.z = q.getZ();
+    eff_target.orientation.w = q.getW();
 
     group.setPoseTarget(eff_target);
 
@@ -111,22 +111,23 @@ int main(int argc, char **argv)
         while(ros::ok()){
             ros::spinOnce();
             if(eff_pose.data.size()){
-                eff_pose.data.resize(0);
-                eff_target.pose.position.x = eff_pose.data[0];
-                eff_target.pose.position.y = eff_pose.data[1];
-                eff_target.pose.position.z = eff_pose.data[2];
+                std::cout<<eff_pose.data[0]<<" "<<eff_pose.data[1]<<" "<<eff_pose.data[2]<<" "<<eff_pose.data.size()<<std::endl;
+                eff_target.position.x = eff_pose.data[0];
+                eff_target.position.y = eff_pose.data[1];
+                eff_target.position.z = eff_pose.data[2];
                 q = tf::createQuaternionFromRPY(eff_pose.data[3],eff_pose.data[4],eff_pose.data[5]);
-                eff_target.pose.orientation.x = q.getX();
-                eff_target.pose.orientation.y = q.getY();
-                eff_target.pose.orientation.z = q.getZ();
-                eff_target.pose.orientation.w = q.getW();
+                eff_target.orientation.x = q.getX();
+                eff_target.orientation.y = q.getY();
+                eff_target.orientation.z = q.getZ();
+                eff_target.orientation.w = q.getW();
 
-                group.setPoseTarget(eff_target);
+                group.setPoseTarget(eff_target,"Link7");
 
                 success = group.plan(my_plan);
                 ROS_INFO("Visualizing plan 1 (pose goal) %s",success?"":"FAILED");
                 group.execute(my_plan);
                 sleep(2);
+                eff_pose.data.resize(0);
             }
         }
 
