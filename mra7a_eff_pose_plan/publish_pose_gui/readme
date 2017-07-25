@@ -1,4 +1,7 @@
 Prerequisites:
 (1)Python
-(2)PyQt5
+(2)PyQt5(pip/anaconda/soucre, sip>=4.19)
 (3)rospy
+
+Instructions:
+python main.py
