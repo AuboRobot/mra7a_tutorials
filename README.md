@@ -14,8 +14,8 @@
 
 5. The **mra7a_grasp_bottle_demo** package get object pose from [kinectv1_object_recognition](https://github.com/auboROS/kinectv1_object_recognition) , and plan the mra7a to grasp the object.<br>
 kinect-computer:<br>
-        (1). roslaunch ork ork_demo.launch //Recognition the object and publish TF.<br>
-        (2). roslaunch ork view_ork.launch //Rviz visualizaition.<br>
+	(1). roslaunch ork ork_demo.launch //Recognition the object and publish TF.<br>
+	(2). roslaunch ork view_ork.launch //Rviz visualizaition.<br>
 arm-computer:<br>
         (1). roslaunch mra_control mra7a_trajectory_rviz.launch //Server for controlling the mra7a.<br>
         (2). rosrun mra7a_grasp_bottle_demo grasp_bottle_demo_node //Get the bottle pose from TF tree and plan the mra7a to execute grasp motion.<br>
