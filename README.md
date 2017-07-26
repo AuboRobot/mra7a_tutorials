@@ -8,9 +8,8 @@
         running command: ```roslaunch mra7a_random_motion mra7a_random_motion.launch```  <br>
 4. The **mra7a_eff_pose_plan** package is a simple program controlling the MRA7a's end effector to move to a specific point.<br>
         running command: <br>
-        1.```roslaunch mra_control mra7a_trajectory_rviz.launch```   <br>
-        2.```roslaunch rosrun mra7a_eff_pose_plan mra7a_eff_pose_plan_node```   <br>
-      In the package, there is a folder named publish_pose_gui, which provides a GUI to publish end effector pose.<br>
+        1.```roslaunch mra7a_eff_pose_plan mra7a_eff_pose_plan.launch ```   <br>
+      In the package, there is a folder named publish_pose_gui, which provides a GUI to publish end effector pose. You can go into the publish_pose_gui folder and run ```python main.py```. <br>
 
 5. The **mra7a_grasp_bottle_demo** package get object pose from [kinectv1_object_recognition](https://github.com/auboROS/kinectv1_object_recognition) , and plan the mra7a to grasp the object.<br>
 *kinect-compute*r:<br>
