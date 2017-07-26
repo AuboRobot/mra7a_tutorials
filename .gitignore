@@ -7,3 +7,6 @@ libIKOptimalHandler.so
 .DS_Store
 marker_control_module.pyc
 joy_control_module.pyc
+publish_pose_gui.pyc
+publish_pose_ui_deal.pyc
+
